@@ -1,0 +1,70 @@
+way = int(input('Введите тип операции (1 - шифрование, 2 - дешифрование)'))
+tip = int(input("Введите тип элемента (1 - один символ, 2 - группа символов, 3 - слово):"))
+key = input('Введите ключ:')
+if way == 1:
+    if tip == 3 or 1 or 2:
+        encoded_word = []
+        word = input('Введите слово:')
+        word_length = len(word)
+        key_length = len(key)
+        counter = 0
+        remnant = word_length
+        while remnant > key_length:
+            remnant -= key_length
+            counter += 1
+        for i in range(0, counter + 1):
+            piece_of_word = word[i * key_length:i * key_length + key_length]
+            if len(piece_of_word) < len(key):
+                additional = 4 - len(piece_of_word)
+                additional_1 = piece_of_word + '*' * additional
+                for j in range(1, len(additional_1)+1):
+                    encoded_letter = additional_1[int(key[-j])]
+                    encoded_word.append(encoded_letter)
+            else:
+                for j in range(1, len(piece_of_word)+1):
+                    encoded_letter = piece_of_word[int(key[-j])]
+                    encoded_word.append(encoded_letter)
+        print(''.join(encoded_word))
+elif way == 2:
+    decoded_word = []
+    word = input('Введите слово:')
+    word_length = len(word)
+    key_length = len(key)
+    counter = 0
+    remnant = word_length
+    while remnant > key_length:
+        remnant -= key_length
+        counter += 1
+    for i in reversed(range(0, counter + 1)):
+        piece_of_word = word[i * key_length:i * key_length + key_length]
+        for j in range(1, len(piece_of_word)+1):
+            decoded_letter = piece_of_word[int(key[-j])]
+            decoded_word.append(decoded_letter)
+    decoded_word.reverse()
+    for i in decoded_word:
+        if i == '*':
+            decoded_word.remove('*')
+    if decoded_word[-1] == '*':
+        decoded_word.remove('*')
+    print(''.join(decoded_word))
+
+#def selection_of_pieces(word, key):
+#    word_length = len(word)
+#    key_length = len(key)
+#    counter = 0
+#    remnant = word_length
+#    while remnant > key_length:
+#        remnant -= key_length
+#        counter += 1
+#    for i in range(0, counter + 1):
+#        piece_of_word = word[i * key_length:i * key_length + key_length]
+#return piece_of_word
+
+    #key_length = len(key)
+    #counter = 0
+    #remnant = word_length
+    #while remnant > key_length:
+    #    remnant -= key_length
+    #    remnant += 1
+    #for i in range(0, counter + 1):
+    #    piece_of_word = word[i * key_length:i * key_length + key_length]
